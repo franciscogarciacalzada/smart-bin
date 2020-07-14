@@ -1,11 +1,8 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 12, 2018 at 06:04 PM
 -- Server version: 10.1.23-MariaDB-9+deb9u1
--- PHP Version: 7.0.27-0+deb9u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `waste_bin`
+-- Database: `smart_bin`
 --
 
 -- --------------------------------------------------------
@@ -319,50 +316,17 @@ INSERT INTO `fireData` (`id`, `time`, `fire`) VALUES
 (159, '2018-07-12 13:10:13', 2),
 (160, '2018-07-12 13:10:17', 3);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `binData`
---
 ALTER TABLE `binData`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `fireData`
---
+
 ALTER TABLE `fireData`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `binData`
---
 ALTER TABLE `binData`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=626;
---
--- AUTO_INCREMENT for table `fireData`
---
+
 ALTER TABLE `fireData`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 DELIMITER $$
---
--- Events
---
-CREATE DEFINER=`admin`@`localhost` EVENT `delData` ON SCHEDULE EVERY 1 DAY STARTS '2018-06-18 10:14:29' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    	DELETE FROM `binData` WHERE UNIX_TIMESTAMP(`time`) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 14 DAY));
-    END$$
-
-CREATE DEFINER=`admin`@`localhost` EVENT `delFireData` ON SCHEDULE EVERY 1 DAY STARTS '2018-07-09 12:00:53' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    	DELETE FROM `fireData` WHERE UNIX_TIMESTAMP(`time`) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 14 DAY));
-    END$$
-
-DELIMITER ;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
